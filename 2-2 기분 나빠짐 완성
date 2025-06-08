@@ -67,9 +67,10 @@ int main(void) {
 				printf("기분이 나빠지지 않습니다.");
 			}
 			else if (r < 4) {
-				printf("%s의 기분이 나빠집니다: %d - %d", str1, feel, feel - 1);
+				printf("%s의 기분이 나빠집니다: %d - 1", str1, feel);
+				feel--
 				}
-			else if (kind == 0) {
+			else if (feel == 0) {
 				break;
 			}
 		}
