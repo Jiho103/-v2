@@ -1,0 +1,271 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <windows.h>
+#include <stdlib.h>
+
+#define ROOM_WIDTH 10
+#define HME_POS 1
+#define BWL_PO (ROOM_WIDTH - 2)
+
+int main(void) {
+	char str1[100];
+	printf("       /\\_/\\\n");
+	printf(" /\\   / o o \\\n");
+	printf("//\\\\  \\~(*)~/\n");
+	printf("`  \\/   ^  /\n");
+	printf("    | \\|| ||\n");
+	printf("    \\ '|| ||\n");
+	printf("     \\)()-())\n");
+	printf("야옹이의 이름을 지어주세요: ");
+	scanf_s("%s", str1, sizeof(str1));
+	printf("야옹이의 이름은 %s입니다\n", str1);
+
+	int kind = 2, inter = 0, cat = 1, move = 0, soup = 0;
+	int cattower = 0;
+	int scratcher = 0;
+	int point = 0;
+	int feel = 3;
+	int laser = 0, mouse = 0, menu = 2;
+	while (1) {
+		printf("==================== 현재상태===================\n");
+		printf("현재까지만든수프: %d \n", soup);
+		printf("cp: %d 포인트\n", point);
+		printf("%s의 기분(0 ~ 3): %d\n", str1, feel);
+		if (feel == 0) {
+			printf("기분이매우나쁩니다.\n");
+		}
+		else if (feel == 1) {
+			printf("심심해합니다.\n");
+		}
+		else if (feel == 2) {
+			printf("식빵을굽습니다.\n");
+		}
+		else if (feel == 3) {
+			printf("골골송을 부릅니다.\n");
+		}
+
+		printf("집사와의관계(0~4): %d\n", kind);
+		if (kind == 0) {
+			printf("곁에오는것조차싫어합니다.\n");
+		}
+		else if (kind == 1) {
+			printf("간식자판기취급입니다.\n");
+		}
+		else if (kind == 2) {
+			printf("그럭저럭쓸만한집사입니다.\n");
+		}
+		else if (kind == 3) {
+			printf("훌륭한집사로인정받고있습니다.\n");
+		}
+		else if (kind == 4) {
+			printf("집사껌딱지입니다.\n");
+		}
+		printf("==================================================\n");
+		printf("6-%d: 주사위 눈이 4이하이면 그냥 기분이나빠집니다. 주사위를 굴립니다 또르륵... ", feel);
+		for (int i = 0; i < 1; i++) {
+			int r = rand() % 5 + 1;
+			printf("%d 이(가) 나왔습니다.\n", r);
+			if (r >= 4) {
+				printf("기분이 나빠지지 않습니다.\n");
+			}
+			else if (feel <= 1) {
+				break;
+			}
+			else if (r < 4) {
+				feel--;
+				printf("%s의 기분이 나빠집니다: %d\n", str1, feel);
+				
+			}
+		}
+
+		if (feel == 0) {
+			printf("기분이매우나쁜 %s 은(는) 집으로향합니다.\n", str1);
+		}
+		else if (feel == 1)
+			if (scratcher || cattower) {
+				if (scratcher) {
+					printf("%s은(는) 심심해서 스크래처 쪽으로 이동합니다.\n", str1);
+				}
+				else {
+					printf("%s은(는) 심심해서 캣타워 쪽으로 이동합니다.\n", str1);
+				}
+			}
+			else {
+				printf("놀거리가 없어서 기분이 매우 나빠집니다.\n");
+				feel =- 1;
+			}
+		else if (feel == 0) {
+			break;
+			}
+		else if (feel == 2) {
+			printf("%s 은(는) 제자리에서 식빵을 굽고 있습니다.\n", str1);
+		}
+		else if (feel == 3) {
+			printf("%s 은(는) 골골송을 부르며 스프를 만들로 갑니다.\n", str1);
+		}
+
+		int cat = 5;
+		int move = 6;
+
+		int T_POS = 7;
+		int S_POS = 9;
+
+		for (int i = 0; i < ROOM_WIDTH; i++) {
+			printf("#");
+		}
+		printf("\n");
+
+		printf("#");
+		for (int i = 1; i < ROOM_WIDTH - 1; i++) {
+			if (i == HME_POS) {
+				printf("H");
+			}
+			else if (i == BWL_PO) {
+				printf("B");
+			}
+			else {
+				printf(" ");
+			}
+		}
+		printf("#\n");
+
+		printf("#");
+		for (int i = 1; i < ROOM_WIDTH - 1; i++) {
+			if (i == cat) {
+				printf("C");
+			}
+			else if (i == move) {
+				printf(".");
+			}
+			else if (cattower && i == T_POS) {
+				printf("T");
+			}
+			else if (scratcher && i == S_POS) {
+				printf("S");
+			}
+			else {
+				printf(" ");
+			}
+		}
+		printf("#\n");
+
+		for (int i = 0; i < ROOM_WIDTH; i++) {
+			printf("#");
+		}
+		printf("\n");
+
+		if (cat == HME_POS) {
+			printf("%s 는 자신의 집에서 편안함을 느낌니다.", str1);
+			feel++;
+		}
+
+		printf("주사위 3이상이면 냄비쪽으로 이동합니다.\n");
+		printf("주사위를 굴립니다 또르륵..");
+		for (int i = 0; i < 1; i++) {
+			int r = rand() % 5 + 1;
+			move = cat;
+			if (r >= 4) {
+				printf("냄비 쪽으로 움직입니다.\n");
+				if (cat + 1 < ROOM_WIDTH - 1)
+					cat++;
+				if (i == move) {
+					printf(".");
+				}
+				else
+				{
+					printf(" ");
+				}
+				printf("\n");
+			}
+			else if (r < 4) {
+				printf("집 쪽으로 움직입니다.\n");
+				if (cat - 1 > 0)
+					cat--;
+			}
+			else if (cat == BWL_PO) {
+				printf("%s이(가) 수프를 만들었습니다!\n", str1);
+				soup++;
+				for (int i = 0; i < 1; i++) {
+					int r = rand() % 3 + 1;
+					if (r == 1) {
+						printf("쫀떡이(가) 감자 수프를 만들었습니다!\n");
+					}
+					else if (r == 2) {
+						printf("쫀떡이(가) 양송이 수프를 만들었습니다!\n");
+					}
+					else if (r == 3) {
+						printf("쫀떡이(가) 브로콜리 수프를 만들었습니다!\n");
+					}
+				}
+			}
+
+			if (cat == S_POS) {
+				printf("%s 는 스크래쳐를 긁고 놀았습니다. 기분이 좋아집니다.", str1);
+				feel++;
+			}
+			else if (cat == T_POS) {
+				printf("%s 는 켓 타워를 오르 내렸 습니다. 기분이 매우 좋아집니다. ", str1);
+				feel += 2;
+				}
+
+			printf("어떤 상호작용을 하시겠습니까? 0. 아무것도 하지않음 1, 긁어 주기\n");
+			printf(">> ");
+			scanf_s("%d", &inter);
+			for (int i = 0; i < 1; i++) {
+				int r = rand() % 5 + 1;
+				if (inter == 0) {
+					printf("아무것도 하지않았습니다.\n 4/6 확률로 친밀도가 떨어집니다. 주사위를 굴립니다 또르륵... ");
+					if (kind == 0) {
+						break;
+					}
+					else if (r < 5) {
+						printf("%d이(가) 나왔습니다!", r);
+						printf("친밀도가 떨어집니다");
+						kind--;
+					}
+					else if (r >= 5) {
+						printf("다행이도 친밀도가 떨어지지않았습니다.");
+					}
+
+				}
+				if (inter == 1) {
+					printf("%s의 턱을 긁어 주었습니다.\n 2/6의 확률로 친밀도가 높아집니다. 주사위를 굴립니다 또르륵... ", str1);
+					if (kind == 4) {
+						break;
+					}
+					else if (r > 4) {
+						printf("%d이(가) 나왔습니다!", r);
+						printf("친밀도가 높아집니다");
+						kind++;
+					}
+					else if (r <= 4) {
+						printf("친밀도가 그대로 입니다.");
+					}
+				}
+				if (mouse && laser) {
+					printf("2. 장난감 쥐로 놀아주기\n");
+					printf("3. 레이저 포인터로 놀아주기\n");
+					menu = 4;
+				}
+				else if (mouse) {
+					printf("2. 장난감 쥐로 놀아주기\n");
+					menu = 3;
+				}
+				else if (laser) {
+					printf("2. 레이저 포인터로 놀아주기\n");
+					menu = 3;
+				}
+				do {
+					if (inter < 0 || inter >= menu) {
+						printf("잘못된 입력입니다. 다시 선택하세요.\n");
+					}
+				} while (inter < 0 || inter >= menu);
+
+			}
+			Sleep(500);
+			system("cls");
+		}
+	}
+}
+
