@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
-#include <stdlib.h>
 
 #define ROOM_WIDTH 10
 #define HME_POS 1
@@ -26,7 +25,7 @@ int main(void) {
 	int scratcher = 0;
 	int point = 0;
 	int feel = 3;
-	int laser, mouse, menu = 2;
+	int laser = 0, mouse = 0, menu = 2;
 	while (1) {
 		printf("==================== 현재상태===================\n");
 		printf("현재까지만든수프: %d \n", soup);
@@ -203,7 +202,7 @@ int main(void) {
 			else if (cat == T_POS) {
 				printf("%s 는 켓 타워를 오르 내렸 습니다. 기분이 매우 좋아집니다. ", str1);
 				feel += 2;
-				}
+			}
 
 			printf("어떤 상호작용을 하시겠습니까? 0. 아무것도 하지않음 1, 긁어 주기\n");
 			printf(">> ");
@@ -264,4 +263,3 @@ int main(void) {
 		}
 	}
 }
-
