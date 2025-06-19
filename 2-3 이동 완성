@@ -18,7 +18,7 @@ int main(void) {
 	printf("    \\ '|| ||\n");
 	printf("     \\)()-())\n");
 	printf("야옹이의 이름을 지어주세요: ");
-	scanf_s("%s", str1, sizeof(str1));
+	scanf_s("%s", str1, (unsigned int)sizeof(str1));
 	printf("야옹이의 이름은 %s입니다\n", str1);
 
 	int kind = 2, inter = 0, cat = 1, move = 0, soup = 0;
