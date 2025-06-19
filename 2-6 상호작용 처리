@@ -302,4 +302,10 @@ int main(void) {
 							printf("%d이(가) 나왔습니다. 친밀도는 그대로입니다.\n", r);
 						}
 					}
-				
+				}
+			}
+		Sleep(500);
+		system("cls");
+		}
+	}
+}
